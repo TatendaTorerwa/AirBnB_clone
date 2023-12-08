@@ -18,6 +18,7 @@ class HBNBCommand(cmd.Cmd):
 
     def do_EOF(self, line):
         """Control D to successfully exit loop"""
+        print()
         return True
 
 
