@@ -16,9 +16,7 @@ class BaseModel:
                 match name:
                     case "__class__":
                         continue
-                    case "updated_at":
-                        value = datetime.strptime(value, "%Y-%m-%d %H:%M:%S")
-                    case "created_at":
+                    case "updated_at" | "created_at":
                         value = datetime.strptime(value, "%Y-%m-%d %H:%M:%S")
                 self.name = value
         else:
