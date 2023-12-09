@@ -11,11 +11,12 @@ class BaseModel:
     """
 
     def __init__(self, *args, **kwargs):
+        """Initializes instance variables"""
         if kwargs is not None:
             for name, value in kwargs.items():
                 match name:
-                    case "__class__":
-                        continue
+                    #case "__class__":
+                    #    continue
                     case "updated_at" | "created_at":
                         value = datetime.strptime(value, "%Y-%m-%dT%H:%M:%S.%f")
                 self.__dict__[name] = value
