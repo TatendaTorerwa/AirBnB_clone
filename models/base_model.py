@@ -12,7 +12,7 @@ class BaseModel:
 
     def __init__(self, *args, **kwargs):
         """Initializes instance variables"""
-        if kwargs is not None:
+        if kwargs is not None and kwargs != {}:
             for name, value in kwargs.items():
                 match name:
                     #case "__class__":
