@@ -11,7 +11,7 @@ class BaseModel:
     """
 
     def __init__(self, *args, **kwargs):
-        if kwargs:
+        if kwargs is not None:
             for name, value in kwargs.items():
                 match name:
                     case "__class__":
