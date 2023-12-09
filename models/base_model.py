@@ -2,7 +2,7 @@
 """The Base Model Module"""
 import uuid
 from datetime import datetime
-import models
+import models import storage
 
 
 class BaseModel:
@@ -17,8 +17,8 @@ class BaseModel:
                     case "__class__":
                         continue
                     case "updated_at" | "created_at":
-                        value = datetime.strptime(value, "%Y-%m-%d %H:%M:%S")
-                self.name = value
+                        value = datetime.strptime(value, "%Y-%m-%dT%H:%M:%S.%f")
+                self.__dict__[name] = value
         else:
             self.id = str(uuid.uuid4())
             self.created_at = datetime.now()
