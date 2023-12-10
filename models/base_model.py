@@ -4,9 +4,13 @@ import models
 from uuid import uuid4
 from datetime import datetime
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 import models
 >>>>>>> a484b7494f37c12cec7cd1035c0e9c95c99ac6cc
+=======
+import models import storage
+>>>>>>> ebc5616b9d1634575afeaa9d8f1a6618aed3eefd
 
 
 class BaseModel:
@@ -14,22 +18,31 @@ class BaseModel:
 
     def __init__(self, *args, **kwargs):
 <<<<<<< HEAD
+<<<<<<< HEAD
         """Initialize a new BaseModel.
 =======
         if kwargs:
+=======
+        """Initializes instance variables"""
+        if kwargs is not None and kwargs != {}:
+>>>>>>> ebc5616b9d1634575afeaa9d8f1a6618aed3eefd
             for name, value in kwargs.items():
                 match name:
-                    case "__class__":
-                        continue
+                    #case "__class__":
+                    #    continue
                     case "updated_at" | "created_at":
-                        value = datetime.strptime(value, "%Y-%m-%d %H:%M:%S")
-                self.name = value
+                        value = datetime.strptime(value, "%Y-%m-%dT%H:%M:%S.%f")
+                self.__dict__[name] = value
         else:
             self.id = str(uuid.uuid4())
             self.created_at = datetime.now()
             self.updated_at = datetime.now()
+<<<<<<< HEAD
             models.storage.new(self)
 >>>>>>> a484b7494f37c12cec7cd1035c0e9c95c99ac6cc
+=======
+            #models.storage.new(self)
+>>>>>>> ebc5616b9d1634575afeaa9d8f1a6618aed3eefd
 
         Args:
             *args (any): Unused.
@@ -73,7 +86,7 @@ class BaseModel:
 =======
         """Updates the the attribute updated_at with the current datetime"""
         self.updated_at = datetime.now()
-        models.storage.save()
+        #models.storage.save()
 
     def to_dict(self):
         """Returns a dictionary, __dict__ of the instance"""
