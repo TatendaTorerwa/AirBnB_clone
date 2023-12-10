@@ -85,7 +85,6 @@ class HBNBCommand(cmd.Cmd):
         if not line:
             for value in storage.__objects.values():
                 print(value)
-        elif:
 
 
 
