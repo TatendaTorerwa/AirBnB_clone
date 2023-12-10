@@ -1,15 +1,16 @@
 #!/usr/bin/python3
 """Module for the console"""
+import shlex
 import cmd
 from models.base_model import BaseModel
 from models.engine.file_storage import FileStorage
-from models.__init__ import storage
+from models import storage
 
 
 class HBNBCommand(cmd.Cmd):
-    """Class for the console"""
+     """Class for the console"""
 
-    prompt = "(hbnb) "
+    prompt = '(hbnb) '
 
     def emptyline(self):
         """reprompts when user press Enter on an empty line"""
@@ -25,35 +26,32 @@ class HBNBCommand(cmd.Cmd):
         return True
 
     def do_create(self, line):
-        """Creates new instance of BaseModel, saves it to JSON
-        and prints its id"""
-        args = line.split()
+        """Creates a new instance of BaseModel, saves it (to the JSON file) and prints the id."""
+        args = shlex.split(line)  # Use shlex to correctly split the line preserving quoted substrings
 
         if not args:
             print("** class name missing **")
             return
 
         try:
-            new_base_model = eval(args[0])()
-        except NameError:
+            new_instance = eval(args[0])()
+            new_instance.save()
+            print(new_instance.id)
+        except (NameError, AttributeError):
             print("** class doesn't exist **")
-            return
-
-        new_base_model.save()
-        print(new_base_model.id)
 
     def do_show(self, line):
-        """Prints the string representation of an instance based on the class name and id"""
-        args = line.split()
+        """Prints the string representation of an instance based on the class name and id."""
+        args = shlex.split(line)
 
         if not args:
             print("** class name missing **")
             return
 
         try:
-            if not isinstance(eval(args[0])(), object):
+            if not isinstance(eval(args[0])(), BaseModel):
                 raise NameError
-        except NameError:
+        except (NameError, AttributeError):
             print("** class doesn't exist **")
             return
 
@@ -67,17 +65,17 @@ class HBNBCommand(cmd.Cmd):
             print("** no instance found **")
 
     def do_destroy(self, line):
-        """Deletes an instance based on the class name and ID"""
-        args = line.split()
+        """Deletes an instance based on the class name and id (save the change into the JSON file)."""
+        args = shlex.split(line)
 
         if not args:
             print("** class name missing **")
             return
 
         try:
-            if not isinstance(eval(args[0])(), object):
+            if not isinstance(eval(args[0])(), BaseModel):
                 raise NameError
-        except NameError:
+        except (NameError, AttributeError):
             print("** class doesn't exist **")
             return
 
@@ -92,14 +90,14 @@ class HBNBCommand(cmd.Cmd):
             print("** no instance found **")
 
     def do_all(self, line):
-        """Prints all string representation of all instances based or not on the class name"""
-        args = line.split()
+        """Prints all string representation of all instances based or not on the class name."""
+        args = shlex.split(line)
 
         if args:
             try:
-                if not isinstance(eval(args[0])(), object):
+                if not isinstance(eval(args[0])(), BaseModel):
                     raise NameError
-            except NameError:
+            except (NameError, AttributeError):
                 print("** class doesn't exist **")
                 return
 
@@ -111,17 +109,17 @@ class HBNBCommand(cmd.Cmd):
                 print(obj)
 
     def do_update(self, line):
-        """Updates an instance based on the class name and id by adding or updating attribute"""
-        args = line.split()
+        """Updates an instance based on the class name and id by adding or updating attribute."""
+        args = shlex.split(line)
 
         if len(args) < 4:
             print("** missing arguments **")
             return
 
         try:
-            if not isinstance(eval(args[0])(), object):
+            if not isinstance(eval(args[0])(), BaseModel):
                 raise NameError
-        except NameError:
+        except (NameError, AttributeError):
             print("** class doesn't exist **")
             return
 
@@ -148,6 +146,7 @@ class HBNBCommand(cmd.Cmd):
             instance.save()
         except Exception:
             print("** invalid value **")
+
 
 if __name__ == '__main__':
     HBNBCommand().cmdloop()
