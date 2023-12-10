@@ -1,11 +1,11 @@
 #!/usr/bin/python3
-<<<<<<< HEAD
 """
 This is the module for BaseModel unittest.
 """
 import os
 import unittest
 from models.base_model import BaseModel
+from models.engine.file_storage import FileStorage
 
 
 
@@ -164,5 +164,4 @@ class TestBaseModel(unittest.TestCase):
         self.assertIn(base, storage.all())
 
 if _name_ == "_main_":
->>>>>>> ebc5616b9d1634575afeaa9d8f1a6618aed3eefd
     unittest.main()

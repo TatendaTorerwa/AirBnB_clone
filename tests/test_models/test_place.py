@@ -4,6 +4,7 @@ Module for Place class unittest
 """
 import unittest
 import models
+from models.engine.file_storage import FileStorage
 import os
 from time import sleep
 from datetime import datetime

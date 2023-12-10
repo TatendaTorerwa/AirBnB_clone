@@ -5,6 +5,7 @@ Module for Amenity class unittest
 import unittest
 import models
 import os
+from models.engine.file_storage import FileStorage
 from time import sleep
 from datetime import datetime
 from models.amenity import Amenity

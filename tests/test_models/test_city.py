@@ -5,6 +5,7 @@ The module for the City unittest.
 import unittest
 import models
 import os
+from models.engine.file_storage import FileStorage
 from time import sleep
 from datetime import datetime
 from models.city import City
