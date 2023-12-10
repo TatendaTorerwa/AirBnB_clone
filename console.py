@@ -87,10 +87,50 @@ class HBNBCommand(cmd.Cmd):
         """Prints a string representation off all
         objects based, or not on the class name"""
         args = line.split()
-        if args and args[:
-            for value in storage.__objects.values():
-                print(value)
+        if args and args[0] not in HBNBCommand.classes:
+            print("** class doesn't exist **")
+        else:
+            objects = storage.all()
+            if args:
+                instances = [str(obj) for obj in objects.values()
+                             if type(obj).__name__ == args[0]]
+            else:
+                instances = [str(obj) for obj in objects.values()]
+            print(instances)
+	
+    def do_update(self, line):
+        """updates an instance based on class name and id"""
+        args = line.split()
 
+        if not args or args[0] not in HBNBCommand.classes:
+            print("** class name missing **")
+        elif len(args) < 2:
+            print("** instance id missing **")
+        elif len(args) < 3:
+        	print("** attribute name missing **")
+        elif len(args) < 4:
+        	print("** value missing **")
+        else:
+            key = args[0] + "." + args[1]
+            objects = storage.all()
+
+            if key not in objects:
+                print("** no instance found **")
+            else:
+                attribute_name, value = args[2], args[3]
+                obj = objects[key]
+                try:
+                    if not hasattr(obj, attribute_name):
+                        print("** no attribute found **")
+                        return
+
+                    value = type(getattr(obj, attribute_name))(value)
+                    setattr(obj, attribute_name, value)
+                    obj.save()
+                except ValueError:
+                    print("** invalid value **")
+                    return
+        
 
 
 if __name__ == "__main__":
