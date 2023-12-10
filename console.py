@@ -148,3 +148,5 @@ class HBNBCommand(cmd.Cmd):
             instance.save()
         except Exception:
             print("** invalid value **")
+if __name__ == '__main__':
+    HBNBCommand().cmdloop()
