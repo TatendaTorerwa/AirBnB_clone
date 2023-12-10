@@ -8,7 +8,7 @@ class FileStorage:
        Deserializes a JSON file to instances
     """
 
-    __file_path = "models/engine/storage.txt"
+    __file_path = "file.json"
     __objects = {}
 
     def all(self):
@@ -22,13 +22,19 @@ class FileStorage:
 
     def save(self):
         """Serializes __objects to JSON file __file_path"""
-        with open(self.__file_path, 'w') as file:
-            json.dump(self.__objects, file)
+        new_dict = {}
+        for key, value in FileStorage.__objects.keys():
+            new_dict[key] = value.to_dict()
+        with open(FileStorage.__file_path, 'w') as file:
+            json.dump(new_dict, file)
 
     def reload(self):
         """Deserializes JSON file to __objects"""
         try:
-            with open(self.__file_path, 'r') as file:
-                self.__objects = json.load(file)
+            with open(FileStorage.__file_path, 'r') as file:
+                new = json.load(file)
+                for key, value in new.items():
+                    new[key] = BaseModel(**value)
+                FileStorage.__objects = new
         except FileNotFoundError:
             pass
