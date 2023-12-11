@@ -41,7 +41,7 @@ class HBNBCommand(cmd.Cmd):
         args = line.split()
         if args[0] not in HBNBCommand.classes:
             print("** class doesn't exist **")
-        cls = global()[args[0]]
+        cls = globals()[args[0]]
         new = cls()
         new.save()
         print(new.id)
