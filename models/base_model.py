@@ -17,6 +17,8 @@ class BaseModel:
             self.created_at = datetime.fromisoformat(kwargs.pop("created_at"))
             self.updated_at = datetime.fromisoformat(kwargs.pop("updated_at"))
             for key, value in kwargs.items():
+                if key == "__class__":
+                    continue
                 setattr(self, key, value)
         else:
             self.id = str(uuid.uuid4())
