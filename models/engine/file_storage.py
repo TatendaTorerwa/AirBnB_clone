@@ -1,6 +1,13 @@
 #!/usr/bin/python3
 """Module for File Storage"""
 import json
+from models.base_model import BaseModel
+from models.user import User
+from models.place import Place
+from models.state import State
+from models.city import City
+from models.amenity import Amenity
+from models.review import Review
 
 
 class FileStorage:
@@ -8,7 +15,7 @@ class FileStorage:
        Deserializes a JSON file to instances
     """
 
-    __file_path = "models/engine/file.json"
+    __file_path = "file.json"
     __objects = {}
 
     def all(self):

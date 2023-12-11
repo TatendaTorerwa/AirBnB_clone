@@ -16,7 +16,8 @@ class HBNBCommand(cmd.Cmd):
     """Class for the console"""
 
     prompt = "(hbnb) "
-    classes = ['BaseModel']
+    classes = ['BaseModel', 'User', 'State', 'City', 'Amenity',\
+            'Place', 'Review']
 
     def emptyline(self):
         """reprompts when user press Enter on an empty line"""
@@ -39,7 +40,7 @@ class HBNBCommand(cmd.Cmd):
             return
         if line not in HBNBCommand.classes:
             print("** class doesn't exist **")
-        new = line()
+        new = global()[line]
         new.save()
         print(new.id)
 
