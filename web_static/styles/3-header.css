@@ -1,5 +1,15 @@
 header {
 	height: 70px;
-	color: white;
-	border-bottom: 1px, #CCCCCC
+	background: white;
+	border-bottom: 1px, #CCCCCC;
+}
+
+div {
+	background-image: url(images/logo.png);
+	background-repeat: no-repeat;
+	background-size: contain;
+	position: absolute;
+	margin-left: 20px;
+	top: 50%;
+	transform: translateY(-50%);
 }
